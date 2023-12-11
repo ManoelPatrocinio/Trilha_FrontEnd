@@ -8,9 +8,14 @@
 
 }
 
-header {
-    height: 100vh;
+main {
     width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
     background-image: url('./assets/imgs/headerbackground.jpg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -18,17 +23,15 @@ header {
 }
 
 .container-destinos {
-    position: absolute;
-    top: 50%;
-    left: 0;
+   
     min-width: 100vw;
     width: 100%;
     height: auto;
-    min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
+    padding-bottom: 1rem;
 }
 
 .roteiros-viagens {
@@ -109,6 +112,9 @@ header {
 }
 
 @media(max-width:600px){
+    main{
+        background-size: cover;
+    }
     .container-destinos {
         flex-direction: column;
         align-items: center;

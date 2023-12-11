@@ -114,6 +114,9 @@ main{
     background-color: black !important;
 }
 @media(max-width:600px){
+    main{
+        background-size: cover;
+    }
     .container-destinos {
         flex-direction: column;
         align-items: center;
