@@ -27,7 +27,7 @@ a:hover{
     color: #3470a8 !important;
 }
 h3{
-    color: #014A8E;
+    color: #014A8E ;
     margin-top: 10px;
     font-family: 'Roboto', sans-serif;
    
@@ -62,12 +62,17 @@ adicionei no header da página o position:sticky, para que mantenha a hirarquia 
 */
 #main-header{
     width: 100%;
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    background-color: #000066;
-    padding: 1.5rem !important;
+    height: 55vh;
+
+    background-image: url('./assets/uesc-header-bg.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
 }
 
 #main-header img{
@@ -75,6 +80,21 @@ adicionei no header da página o position:sticky, para que mantenha a hirarquia 
     height: 100px;
 }
 
+.slide-controls{
+    width:  2rem;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #ffffffa1;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.slide-controls:hover{
+    background-color: #ffffff;
+    width:  2.5rem;
+    height: 6px;
+    border-radius: 3px;
+
+}
 #menu ul, #servicos ul{
     padding-left: 10px;
 }
@@ -117,6 +137,16 @@ adicionei no header da página o position:sticky, para que mantenha a hirarquia 
     height: 300px;
     overflow-y: auto;
 }
+#noticias_content a{
+    color: #014A8E;
+
+}
+#noticias_content a:hover{
+    color: #000066 !important;
+
+}
+
+
 #noticias_content p{
     width: 100%;
     height: 6.25rem;

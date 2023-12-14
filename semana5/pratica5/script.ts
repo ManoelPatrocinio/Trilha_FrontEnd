@@ -1,5 +1,5 @@
 
-interface IapiNoticesResponse{
+interface IapiNoticesResponse {
   status: string,
   totalHits: number,
   data: Article[]
@@ -11,15 +11,15 @@ interface Article {
   description: string;
   identifiers: string[];
   publisher: string;
-  relations: any[]; 
+  relations: any[];
   repositories: string[];
   repositoryDocument: {
-    [key: string]: any; 
+    [key: string]: any;
   };
   subjects: string[];
   title: string;
   topics: string[];
-  types: any[]; 
+  types: any[];
   year: number;
   fulltextIdentifier: string;
   oai: string;
@@ -31,27 +31,23 @@ async function buscaClima() {
   const cidade: string = 'Itabuna';
 
   try {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cidade},BR&appid=${apiKey}`);
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cidade},BR&appid=${apiKey}&units=metric`);
 
     if (!response.ok) {
-      throw new Error('Erro na requisição');
+      throw new Error('Erro na requisição para API do clima');
     }
 
     const data = await response.json();
 
     if (data && data.main && data.main.temp !== undefined) {
-      const temperature: number = data.main.temp;
-      const tempMin: number = data.main.temp_min;
-      const tempMax: number = data.main.temp_max;
-      const clima: string = data.weather[0].description;
-
-      mostrarTemperatura(temperature, tempMin, tempMax, clima)
+   
+      mostrarTemperatura(data.main.temp, data.main.temp_min, data.main.temp_max, data.weather[0].description)
     } else {
       throw new Error('Dados de temperatura não disponíveis');
     }
 
   } catch (error) {
-    console.error('Erro:', error);
+    console.error('Erro buscaClima:', error);
   }
 }
 
@@ -79,12 +75,9 @@ function mostrarTemperatura(temperatura: number, tempMin: number, tempMax: numbe
     console.error('Div não encontrada.');
   }
 }
-
-
-
 async function buscaNoticias(): Promise<Article[]> {
-  const apiKey: string = '9Xzyk6QRlWpuKdarLe0ZUgPSbq2cn48o'; // Substitua com sua chave de API do Core API
-  const searchTerm: string = 'machine learning'; // Termo de busca para as notícias acadêmicas
+  const apiKey: string = '9Xzyk6QRlWpuKdarLe0ZUgPSbq2cn48o';
+  const searchTerm: string = 'machine learning'; 
   try {
     const response = await fetch(`https://core.ac.uk/api-v2/articles/search/${searchTerm}?apiKey=${apiKey}`);
 
@@ -93,10 +86,8 @@ async function buscaNoticias(): Promise<Article[]> {
     }
 
     const data = await response.json() as IapiNoticesResponse;
-    for(let i = 0; i < 5; i++){
-      console.log(data.data[i].title, data.data[i].description,data.data[i].downloadUrl)
-      mostrarNoticias(data.data[i].title, data.data[i].description,data.data[i].downloadUrl);
-      // mostrarNoticias("data.data[i].title", "data.data[i].description","data.data[i].downloadUrl");
+    for (let i = 0; i < 5; i++) {
+      mostrarNoticias(data.data[i].title, data.data[i].description, data.data[i].downloadUrl);
     }
     return data.data;
   } catch (error) {
@@ -105,25 +96,43 @@ async function buscaNoticias(): Promise<Article[]> {
   }
 }
 
-function mostrarNoticias(title:string,description: string, link: string) {
+function mostrarNoticias(title: string, description: string, link: string) {
   const divNoticias = document.getElementById('noticias_content');
 
   const noticiaTitulo = document.createElement('h3');
   const noticiaDescricao = document.createElement('p');
 
-  noticiaTitulo.textContent = ` ${title}`;
+  noticiaTitulo.innerHTML = `<a href={${link}}>  ${title}</a>`;
   noticiaDescricao.textContent = `${description}`
 
- 
+
   if (divNoticias) {
     divNoticias.appendChild(noticiaTitulo);
     divNoticias.appendChild(noticiaDescricao);
 
   } else {
-    console.error('Div não encontrada.');
+    console.error('Div noticias_content não encontrada.');
   }
 }
 
+function alterHeaderImg(){
+  document.querySelector("#next")?.addEventListener("click",()=>{
+    const mainHeaderDiv: any = window.document.getElementById("main-header");
+    if (mainHeaderDiv) {
+      mainHeaderDiv.style.backgroundImage = 'url("./assets/uesc-header-bg2.jpg")';
+    }
+  })
+  document.querySelector("#prev")?.addEventListener("click",()=>{
+    const mainHeaderDiv: any = window.document.getElementById("main-header");
+    if (mainHeaderDiv) {
+      mainHeaderDiv.style.backgroundImage = 'url("./assets/uesc-header-bg.webp")';
+    }
+  })
+
+
+}
 buscaNoticias();
 buscaClima();
+alterHeaderImg();
 
+//how add a background image with javascript ?

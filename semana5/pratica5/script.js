@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function buscaClima() {
     return __awaiter(this, void 0, void 0, function () {
-        var apiKey, cidade, response, data, temperature, tempMin, tempMax, clima, error_1;
+        var apiKey, cidade, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -45,21 +45,17 @@ function buscaClima() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetch("https://api.openweathermap.org/data/2.5/weather?q=".concat(cidade, ",BR&appid=").concat(apiKey))];
+                    return [4 /*yield*/, fetch("https://api.openweathermap.org/data/2.5/weather?q=".concat(cidade, ",BR&appid=").concat(apiKey, "&units=metric"))];
                 case 2:
                     response = _a.sent();
                     if (!response.ok) {
-                        throw new Error('Erro na requisição');
+                        throw new Error('Erro na requisição para API do clima');
                     }
                     return [4 /*yield*/, response.json()];
                 case 3:
                     data = _a.sent();
                     if (data && data.main && data.main.temp !== undefined) {
-                        temperature = data.main.temp;
-                        tempMin = data.main.temp_min;
-                        tempMax = data.main.temp_max;
-                        clima = data.weather[0].description;
-                        mostrarTemperatura(temperature, tempMin, tempMax, clima);
+                        mostrarTemperatura(data.main.temp, data.main.temp_min, data.main.temp_max, data.weather[0].description);
                     }
                     else {
                         throw new Error('Dados de temperatura não disponíveis');
@@ -67,7 +63,7 @@ function buscaClima() {
                     return [3 /*break*/, 5];
                 case 4:
                     error_1 = _a.sent();
-                    console.error('Erro:', error_1);
+                    console.error('Erro buscaClima:', error_1);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];
             }
@@ -115,9 +111,7 @@ function buscaNoticias() {
                 case 3:
                     data = _a.sent();
                     for (i = 0; i < 5; i++) {
-                        console.log(data.data[i].title, data.data[i].description, data.data[i].downloadUrl);
                         mostrarNoticias(data.data[i].title, data.data[i].description, data.data[i].downloadUrl);
-                        // mostrarNoticias("data.data[i].title", "data.data[i].description","data.data[i].downloadUrl");
                     }
                     return [2 /*return*/, data.data];
                 case 4:
@@ -133,15 +127,32 @@ function mostrarNoticias(title, description, link) {
     var divNoticias = document.getElementById('noticias_content');
     var noticiaTitulo = document.createElement('h3');
     var noticiaDescricao = document.createElement('p');
-    noticiaTitulo.textContent = " ".concat(title);
+    noticiaTitulo.innerHTML = "<a href={".concat(link, "}>  ").concat(title, "</a>");
     noticiaDescricao.textContent = "".concat(description);
     if (divNoticias) {
         divNoticias.appendChild(noticiaTitulo);
         divNoticias.appendChild(noticiaDescricao);
     }
     else {
-        console.error('Div não encontrada.');
+        console.error('Div noticias_content não encontrada.');
     }
+}
+function alterHeaderImg() {
+    var _a, _b;
+    (_a = document.querySelector("#next")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function () {
+        var mainHeaderDiv = window.document.getElementById("main-header");
+        if (mainHeaderDiv) {
+            mainHeaderDiv.style.backgroundImage = 'url("./assets/uesc-header-bg2.jpg")';
+        }
+    });
+    (_b = document.querySelector("#prev")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", function () {
+        var mainHeaderDiv = window.document.getElementById("main-header");
+        if (mainHeaderDiv) {
+            mainHeaderDiv.style.backgroundImage = 'url("./assets/uesc-header-bg.webp")';
+        }
+    });
 }
 buscaNoticias();
 buscaClima();
+alterHeaderImg();
+//how add a background image with javascript ?
