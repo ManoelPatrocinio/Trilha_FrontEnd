@@ -1,4 +1,12 @@
 
+/* 
+==== APIs PUBLICAS USADAS 
+
+P/ NOTÍCIAS: https://core.ac.uk/services/api
+P/ CLIMA: https://api.openweathermap.org
+
+*/
+
 interface IapiNoticesResponse {
   status: string,
   totalHits: number,
@@ -31,6 +39,13 @@ async function buscaClima() {
   const cidade: string = 'Itabuna';
 
   try {
+    const loadingIndicator = document.getElementById('clima_info');
+
+    //add paragrafo com mensagem de carregamento
+    if (loadingIndicator) {
+      loadingIndicator.innerHTML = '<p style="margin-top: 1rem; font-weight:600">Carregando...</p>';
+    }
+
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cidade},BR&appid=${apiKey}&units=metric`);
 
     if (!response.ok) {
@@ -40,10 +55,11 @@ async function buscaClima() {
     const data = await response.json();
 
     if (data && data.main && data.main.temp !== undefined) {
-   
+      if (loadingIndicator) loadingIndicator.textContent = ''; // Remove o indicador de carregamento
+
       mostrarTemperatura(data.main.temp, data.main.temp_min, data.main.temp_max, data.weather[0].description)
     } else {
-      throw new Error('Dados de temperatura não disponíveis');
+      throw new Error('Dados do clima não disponíveis');
     }
 
   } catch (error) {
@@ -77,7 +93,15 @@ function mostrarTemperatura(temperatura: number, tempMin: number, tempMax: numbe
 }
 async function buscaNoticias(): Promise<Article[]> {
   const apiKey: string = '9Xzyk6QRlWpuKdarLe0ZUgPSbq2cn48o';
-  const searchTerm: string = 'machine learning'; 
+  const searchTerm: string = 'machine learning';
+
+  const loadingIndicator = document.getElementById('noticias_content');
+
+  //add paragrafo com mensagem de carregamento
+  if (loadingIndicator) {
+    loadingIndicator.innerHTML = '<p style="margin-top: 1.5rem; font-weight:600">Carregando noticias...</p>';
+  }
+
   try {
     const response = await fetch(`https://core.ac.uk/api-v2/articles/search/${searchTerm}?apiKey=${apiKey}`);
 
@@ -85,13 +109,24 @@ async function buscaNoticias(): Promise<Article[]> {
       throw new Error('Erro na requisição');
     }
 
+
     const data = await response.json() as IapiNoticesResponse;
-    for (let i = 0; i < 5; i++) {
-      mostrarNoticias(data.data[i].title, data.data[i].description, data.data[i].downloadUrl);
+
+    if (data && data.data && data.data.length > 0) {
+      if (loadingIndicator) loadingIndicator.textContent = ''; // Remove o indicador de carregamento
+      const noticias = data.data.slice(0, 5); // Pegar no máximo 5 notícias
+      for (const noticia of noticias) {
+        mostrarNoticias(noticia.title, noticia.description, noticia.downloadUrl);
+      }
+      return noticias;
+    } else {
+      throw new Error('Dados de notícias não disponíveis');
     }
-    return data.data;
   } catch (error) {
     console.error('Erro:', error);
+    if (loadingIndicator) {
+      loadingIndicator.textContent = 'Falha ao carregar informações de clima';
+    }
     return [];
   }
 }
@@ -115,14 +150,14 @@ function mostrarNoticias(title: string, description: string, link: string) {
   }
 }
 
-function alterHeaderImg(){
-  document.querySelector("#next")?.addEventListener("click",()=>{
+function alterHeaderImg() {
+  document.querySelector("#next")?.addEventListener("click", () => {
     const mainHeaderDiv: any = window.document.getElementById("main-header");
     if (mainHeaderDiv) {
       mainHeaderDiv.style.backgroundImage = 'url("./assets/uesc-header-bg2.jpg")';
     }
   })
-  document.querySelector("#prev")?.addEventListener("click",()=>{
+  document.querySelector("#prev")?.addEventListener("click", () => {
     const mainHeaderDiv: any = window.document.getElementById("main-header");
     if (mainHeaderDiv) {
       mainHeaderDiv.style.backgroundImage = 'url("./assets/uesc-header-bg.webp")';
@@ -135,4 +170,3 @@ buscaNoticias();
 buscaClima();
 alterHeaderImg();
 
-//how add a background image with javascript ?

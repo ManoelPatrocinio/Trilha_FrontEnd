@@ -1,3 +1,10 @@
+/*
+==== APIs PUBLICAS USADAS
+
+P/ NOTÍCIAS: https://core.ac.uk/services/api
+P/ CLIMA: https://api.openweathermap.org
+
+*/
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -36,7 +43,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 function buscaClima() {
     return __awaiter(this, void 0, void 0, function () {
-        var apiKey, cidade, response, data, error_1;
+        var apiKey, cidade, loadingIndicator, response, data, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -45,6 +52,11 @@ function buscaClima() {
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
+                    loadingIndicator = document.getElementById('clima_info');
+                    //add paragrafo com mensagem de carregamento
+                    if (loadingIndicator) {
+                        loadingIndicator.innerHTML = '<p style="margin-top: 1rem; font-weight:600">Carregando...</p>';
+                    }
                     return [4 /*yield*/, fetch("https://api.openweathermap.org/data/2.5/weather?q=".concat(cidade, ",BR&appid=").concat(apiKey, "&units=metric"))];
                 case 2:
                     response = _a.sent();
@@ -55,10 +67,12 @@ function buscaClima() {
                 case 3:
                     data = _a.sent();
                     if (data && data.main && data.main.temp !== undefined) {
+                        if (loadingIndicator)
+                            loadingIndicator.textContent = ''; // Remove o indicador de carregamento
                         mostrarTemperatura(data.main.temp, data.main.temp_min, data.main.temp_max, data.weather[0].description);
                     }
                     else {
-                        throw new Error('Dados de temperatura não disponíveis');
+                        throw new Error('Dados do clima não disponíveis');
                     }
                     return [3 /*break*/, 5];
                 case 4:
@@ -92,12 +106,17 @@ function mostrarTemperatura(temperatura, tempMin, tempMax, clima) {
 }
 function buscaNoticias() {
     return __awaiter(this, void 0, void 0, function () {
-        var apiKey, searchTerm, response, data, i, error_2;
+        var apiKey, searchTerm, loadingIndicator, response, data, noticias, _i, noticias_1, noticia, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     apiKey = '9Xzyk6QRlWpuKdarLe0ZUgPSbq2cn48o';
                     searchTerm = 'machine learning';
+                    loadingIndicator = document.getElementById('noticias_content');
+                    //add paragrafo com mensagem de carregamento
+                    if (loadingIndicator) {
+                        loadingIndicator.innerHTML = '<p style="margin-top: 1.5rem; font-weight:600">Carregando noticias...</p>';
+                    }
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 4, , 5]);
@@ -110,13 +129,26 @@ function buscaNoticias() {
                     return [4 /*yield*/, response.json()];
                 case 3:
                     data = _a.sent();
-                    for (i = 0; i < 5; i++) {
-                        mostrarNoticias(data.data[i].title, data.data[i].description, data.data[i].downloadUrl);
+                    if (data && data.data && data.data.length > 0) {
+                        if (loadingIndicator)
+                            loadingIndicator.textContent = ''; // Remove o indicador de carregamento
+                        noticias = data.data.slice(0, 5);
+                        for (_i = 0, noticias_1 = noticias; _i < noticias_1.length; _i++) {
+                            noticia = noticias_1[_i];
+                            mostrarNoticias(noticia.title, noticia.description, noticia.downloadUrl);
+                        }
+                        return [2 /*return*/, noticias];
                     }
-                    return [2 /*return*/, data.data];
+                    else {
+                        throw new Error('Dados de notícias não disponíveis');
+                    }
+                    return [3 /*break*/, 5];
                 case 4:
                     error_2 = _a.sent();
                     console.error('Erro:', error_2);
+                    if (loadingIndicator) {
+                        loadingIndicator.textContent = 'Falha ao carregar informações de clima';
+                    }
                     return [2 /*return*/, []];
                 case 5: return [2 /*return*/];
             }
@@ -155,4 +187,3 @@ function alterHeaderImg() {
 buscaNoticias();
 buscaClima();
 alterHeaderImg();
-//how add a background image with javascript ?
