@@ -75,10 +75,6 @@ adicionei no header da página o position:sticky, para que mantenha a hirarquia 
     gap: 1rem;
 }
 
-#main-header img{
-    width: 260px;
-    height: 100px;
-}
 
 .slide-controls{
     width:  2rem;
