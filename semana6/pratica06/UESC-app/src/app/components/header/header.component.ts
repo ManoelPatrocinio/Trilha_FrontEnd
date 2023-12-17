@@ -9,15 +9,18 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  ngOnInit():void{
+    this.alterHeaderImg()
+  }
   alterHeaderImg() {
     document.querySelector("#next")?.addEventListener("click", () => {
-      const mainHeaderDiv: any = window.document.getElementById("main-header");
+      const mainHeaderDiv: HTMLElement | null = window.document.getElementById("main-header");
       if (mainHeaderDiv) {
         mainHeaderDiv.style.backgroundImage = 'url("../../../assets/uesc-header-bg2.jpg")';
       }
     })
     document.querySelector("#prev")?.addEventListener("click", () => {
-      const mainHeaderDiv: any = window.document.getElementById("main-header");
+      const mainHeaderDiv: HTMLElement | null = window.document.getElementById("main-header");
       if (mainHeaderDiv) {
         mainHeaderDiv.style.backgroundImage = 'url("../../../assets/uesc-header-bg.webp")';
       }

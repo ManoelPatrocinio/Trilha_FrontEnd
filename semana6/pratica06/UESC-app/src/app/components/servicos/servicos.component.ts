@@ -23,7 +23,6 @@ export class ServicosComponent {
       .subscribe({
         next: (data) => {
           this.response = data;
-          console.log("response", this.response)
         },
         error: (error: HttpErrorResponse) => {
           this.error = error.message;

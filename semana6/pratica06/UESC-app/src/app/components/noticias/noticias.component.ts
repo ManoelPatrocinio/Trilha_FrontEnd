@@ -52,7 +52,6 @@ export class NoticiasComponent {
       .subscribe({
         next: (data: IapiNoticesResponse) => {
           this.noticias = data.data;
-          console.log(this.noticias);
         },
         error: (error: HttpErrorResponse) => {
           this.error = error.message;
