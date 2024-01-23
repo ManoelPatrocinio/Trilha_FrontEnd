@@ -1,7 +1,7 @@
 <main>
   <input type="file" name="" id="">
   <div class="componets_containar">
-    <app-classe [categorias]="result" (categoriaEscolhida)="setCategorySelected($event)" />
+    <app-classe [categorias]="result" (categoriaEscolhida)="categorySelect = $event" />
     <app-objeto [veiculos]="categorySelect" (veiculoEscolhida)="setVeiculoSelected($event)" />
     <app-propriedade [veiculo]="veiculoSelect" (propEscolhida)="setPropSelected($event)" />
     <app-valor-propriedade [prop]="propSelect" />

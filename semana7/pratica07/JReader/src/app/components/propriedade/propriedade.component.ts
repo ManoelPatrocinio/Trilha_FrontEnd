@@ -11,14 +11,13 @@ import { VeiculosDirective } from '../../diretivas/veiculos.directive';
   styleUrl: './propriedade.component.css'
 })
 export class PropriedadeComponent {
-  @Input() veiculo: any
-
+  @Input() veiculo: any;
   @Output() propEscolhida = new EventEmitter<string>();
   
   selectProp(prop:string){
     this.propEscolhida.emit(prop);
-
   }
+
   obterChaves(): string[] {
     return Object.keys(this.veiculo);
   }

@@ -8,23 +8,25 @@ import { ObjetoComponent } from './components/objeto/objeto.component';
 import { PropriedadeComponent } from './components/propriedade/propriedade.component';
 import { ValorPropriedadeComponent } from './components/valor-propriedade/valor-propriedade.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ApiService } from './services/api-service.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,NgIf, RouterOutlet,HttpClientModule, 
-            ClasseComponent,ObjetoComponent, 
-            PropriedadeComponent,ValorPropriedadeComponent,
-            FooterComponent
+  imports: [CommonModule, NgIf, RouterOutlet, HttpClientModule,
+    ClasseComponent, ObjetoComponent,
+    PropriedadeComponent, ValorPropriedadeComponent,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ApiService]
 })
 export class AppComponent {
 
-  result:any;
+  result: any;
   urlToJson = '../assets/veiculos.json';
-  categorySelect: veiculosObj 
+  categorySelect: veiculosObj
   veiculoSelect: (type_veiculos | null);
   propSelect: string;
   veiculoList: type_veiculos[] = [];
@@ -35,22 +37,37 @@ export class AppComponent {
     this.propSelect = ""
   }
 
+  // constructor(private veiculoServico: ApiService) {
+  //   this.categorySelect = { categoria: "", items: [] }
+  //   this.veiculoSelect = null
+  //   this.propSelect = ""
+  // }
   ngOnInit(): void {
     this.http.get<any>(this.urlToJson).subscribe(response => {
       this.result = response;
     });
   }
-  setCategorySelected(event:veiculosObj){
+
+  // ngOnInit(): void {
+  //   this.veiculoServico.getVeiculos().subscribe((response) => {
+  //     const name = response.map((item:any)=>{
+  //       return item.name
+  //     })
+  //     console.log("veiculoServico",response)
+  //     this.result = name;
+  //   })
+  // }
+  setCategorySelected(event: veiculosObj) {
     this.categorySelect = event;
   }
-  setVeiculoSelected(veiculo:type_veiculos){
+  setVeiculoSelected(veiculo: type_veiculos) {
     this.veiculoSelect = veiculo;
   }
-  setPropSelected(prop:string){
+  setPropSelected(prop: string) {
     this.propSelect = prop;
   }
 
-  addVeiculos(veiculo:type_veiculos){
+  addVeiculos(veiculo: type_veiculos) {
     veiculo && !this.veiculoList.includes(veiculo) && this.veiculoList.push(veiculo);
   }
   title = 'JReader';
