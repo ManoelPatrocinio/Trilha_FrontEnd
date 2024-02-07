@@ -24,40 +24,9 @@ import { ApiService } from './services/api-service.service';
 })
 export class AppComponent {
 
-  result: any;
-  urlToJson = '../assets/veiculos.json';
-  categorySelect: veiculosObj
-  veiculoSelect: (type_veiculos | null);
-  propSelect: string;
-  veiculoList: type_veiculos[] = [];
-s
-  constructor(private veiculoServico: ApiService) {
-    this.categorySelect = { categoria: "", items: [] }
-    this.veiculoSelect = null
-    this.propSelect = ""
-  }
+ 
+  constructor(private veiculoServico: ApiService) {}
+   
 
-  ngOnInit(): void {
-    this.veiculoServico.getVeiculos().subscribe((response) => {
-      const name = response.map((item:any)=>{
-        return item.name
-      })
-      console.log("veiculoServico",response)
-      this.result = name;
-    })
-  }
-  setCategorySelected(event: veiculosObj) {
-    this.categorySelect = event;
-  }
-  setVeiculoSelected(veiculo: type_veiculos) {
-    this.veiculoSelect = veiculo;
-  }
-  setPropSelected(prop: string) {
-    this.propSelect = prop;
-  }
-
-  addVeiculos(veiculo: type_veiculos) {
-    veiculo && !this.veiculoList.includes(veiculo) && this.veiculoList.push(veiculo);
-  }
   title = 'JReader';
 }

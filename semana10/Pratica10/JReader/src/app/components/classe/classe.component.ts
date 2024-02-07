@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { CategoriasDirective } from '../../diretivas/categorias.directive';
+import { ApiService } from '../../services/api-service.service';
 
 @Component({
   selector: 'app-classe',
@@ -10,15 +11,26 @@ import { CategoriasDirective } from '../../diretivas/categorias.directive';
   styleUrl: './classe.component.css'
 })
 export class ClasseComponent {
-  @Input() categorias: any
-  @Output() categoriaEscolhida = new EventEmitter<{ categoria: string, items: [] }>();
+  categorias: string[]
 
-  obterChaves(): string[] {
-    return this.categorias ? Object.keys(this.categorias) : [];
+  constructor(private apiServico: ApiService){
+    this.categorias = []
+  }
+ 
+  ngOnInit(){
+    this.apiServico.getVeiculos().subscribe(
+      dados =>{
+        this.categorias = Object.keys(dados)
+      },
+      error =>{
+        console.error("error ao carregar as categorias ", error)
+      }
+    )
+    
   }
 
 
+
   selectCategoria(categoria: string) {
-    this.categoriaEscolhida.emit({ categoria, items: this.categorias[categoria] });
   }
 }
