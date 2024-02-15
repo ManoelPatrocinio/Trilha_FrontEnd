@@ -6,31 +6,40 @@ import { ApiService } from '../../services/api-service.service';
 @Component({
   selector: 'app-classe',
   standalone: true,
-  imports: [NgFor,CategoriasDirective],
+  imports: [NgFor, CategoriasDirective],
   templateUrl: './classe.component.html',
   styleUrl: './classe.component.css'
 })
 export class ClasseComponent {
   categorias: string[]
 
-  constructor(private apiServico: ApiService){
+  constructor(private apiServico: ApiService) {
     this.categorias = []
   }
- 
-  ngOnInit(){
+
+  ngOnInit() {
     this.apiServico.getVeiculos().subscribe(
-      dados =>{
+      dados => {
         this.categorias = Object.keys(dados)
       },
-      error =>{
+      error => {
         console.error("error ao carregar as categorias ", error)
       }
     )
-    
+
   }
 
 
 
   selectCategoria(categoria: string) {
+    this.apiServico.getVeiculos().subscribe(
+      data => {
+        this.apiServico.emitirCategoria({categoria:categoria, veiculos:data[categoria]});
+      },
+      error => {
+        console.log('Erro ao carregar os dados da categoria:', error);
+      }
+    );
+
   }
 }

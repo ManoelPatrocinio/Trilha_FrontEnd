@@ -23,10 +23,27 @@ import { ApiService } from './services/api-service.service';
   providers: [ApiService]
 })
 export class AppComponent {
+  veiculo: type_veiculos | null = null;
 
- 
-  constructor(private veiculoServico: ApiService) {}
-   
+  constructor(private apiServico: ApiService) {
+
+    this.apiServico.getVeiculoObservable().subscribe(
+      data => {
+        this.veiculo = data
+
+      },
+      error => {
+        console.log('Erro ao receber os dados do veiculo:', error);
+      }
+    );
+
+  }
+
+  addVeiculoOnList() {
+
+    this.apiServico.emitirListaV(this.veiculo!.Name)
+
+  }
 
   title = 'JReader';
 }

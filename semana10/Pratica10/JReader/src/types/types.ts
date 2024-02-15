@@ -10,5 +10,5 @@ export type type_veiculos = {
 
 export type veiculosObj ={
     categoria: string,
-    items: type_veiculos[] 
+    veiculos: type_veiculos[] 
   }
