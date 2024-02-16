@@ -11,7 +11,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 })
 export class FormReativeComponent {
   exemploForm: FormGroup;
-
+ 
  constructor() { 
     this.exemploForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.minLength(10)]),
