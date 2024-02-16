@@ -4,6 +4,14 @@ form,form h2, form p{
     text-align: center;
 }
 
+form{
+    padding: 5%;
+    background-color: #fff;
+    border-radius: .8rem;
+    box-shadow: 0 3px 10px  rgba(0,0,0,.4)
+    
+}
+
 form h2{
     font-size: 2rem;
     color: #242424;
@@ -57,10 +65,15 @@ button{
     border: none;
     border-radius: 5px;
     transition: all .5s ease-in-out;
+    margin-top: 2rem;
 }
 
 button:hover{
     background-color: #5a5a5a;
+
+}
+button:disabled{
+    background-color: #a09e9e;
 
 }
 

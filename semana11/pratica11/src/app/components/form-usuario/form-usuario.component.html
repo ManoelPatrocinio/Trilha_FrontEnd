@@ -15,7 +15,7 @@
     <div class="input-group">
         <label for="user_fullName">Nome Completo</label>
         <input type="text" formControlName="user_fullName" name="user_fullName">
-        <div *ngIf="userForm.get('user_fullName')?.errors?.['invalidFullName'] &&  userForm.get('user_fullName')?.touched">
+        <div *ngIf="userForm.get('user_fullName')?.errors?.['invalidFullName'] && userForm.get('user_fullName')?.touched">
             <span class="error_message"> Informe no mínimo nome e sobrenome</span>
         </div>
     </div>
@@ -59,6 +59,17 @@
             <label for="user_birthday">Data de Nascimento</label>
             <input type="date" formControlName="user_birthday" name="user_birthday">
 
+            <div *ngIf="userForm.get('user_birthday')?.invalid && (userForm.get('user_birthday')?.dirty || userForm.get('user_birthday')?.touched)">
+                <div *ngIf="userForm.get('user_birthday')?.errors?.['required']">
+                  <span class="error_message"> Campo obrigatório ! </span>
+                </div>
+                <div *ngIf="userForm.get('user_birthday')?.errors?.['invalidDate']">
+                  <span class="error_message"> Data de Nascimento inválida. </span>
+                </div>
+                <div *ngIf="userForm.get('user_birthday')?.errors?.['minAge']">
+                  <span class="error_message"> Idade mínima:18 anos. </span>
+                </div>
+              </div>
         </div>
         <div class="input-group">
             <label for="user_gender">Gênero</label>
@@ -66,6 +77,9 @@
                 <option value="Masculino">Masculino</option>
                 <option value="Feminino">Feminino</option>
             </select>
+            <div *ngIf="!userForm.get('user_gender')?.valid &&  userForm.get('user_gender')?.touched">
+                <span class="error_message"> Campo obrigatório !</span>
+            </div>
         </div>
 
         <div class="input-group">
@@ -76,6 +90,9 @@
                 <option value="Gamer">Gamer</option>
                 <option value="Comércio Exterior">Comércio Exterior</option>
             </select>
+            <div *ngIf="!userForm.get('user_profession')?.valid &&  userForm.get('user_profession')?.touched">
+                <span class="error_message"> Campo obrigatório !</span>
+            </div>
         </div>
     </div>
 
