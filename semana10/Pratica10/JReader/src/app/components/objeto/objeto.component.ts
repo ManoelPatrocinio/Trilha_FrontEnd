@@ -21,7 +21,7 @@ export class ObjetoComponent {
     this.categoriaSelected = null
 
   }
-
+ 
   ngOnInit() {
     this.apiServico.getCategoriaObservable().subscribe(
       data => {
