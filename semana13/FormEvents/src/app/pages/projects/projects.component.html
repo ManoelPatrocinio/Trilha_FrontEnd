@@ -1,10 +1,11 @@
 <article> 
-    <h3>Confira meus projetos</h3>
+    <h3>Alguns projetos públicos</h3>
     <div class="projects-container">
-        <div *ngFor="let proj of projetos">
-            <h5>{{proj.projectName}}</h5>
-            <a href=`{{proj.projectLink}}`>Acesse aqui</a>
-        </div>
+      
+            <a *ngFor="let proj of projetos" href={{proj.projectLink}} target="_blank" >
+                
+                {{proj.projectName}}
+            </a>
     </div>
 
 </article>

@@ -29,5 +29,9 @@
     color: #242424;
     font-size: 1.2rem;
     text-decoration: none;
+    transition: all .3s ease-in
+}
 
+.items-menu a:hover{
+    color: var(--Color-purple);
 }

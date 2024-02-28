@@ -30,15 +30,13 @@ export class ProjectsComponent {
     this.getProjects().subscribe((response) => {
       response.map((item:any)=>{
 
-        let newProject:IgitHubRespose ={
+       
+        this.projetos?.push({
           projectName : item.name,
           projectLink: item.html_url
-        }
-        this.projetos?.push(newProject)
+        })
 
-        console.log("newProject",newProject)
 
-        console.log("this.projetos",this.projetos)
        
       })
     })
