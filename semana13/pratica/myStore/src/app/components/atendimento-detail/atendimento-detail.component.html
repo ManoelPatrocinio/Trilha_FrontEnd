@@ -1,0 +1,16 @@
+<details class="collapse">
+    <summary class="title">{{atendimento?.atend_date}} | {{atendimento?.atend_hour}}</summary>
+    <div class="description">
+        <div id="pet-info">
+
+            <p><strong>Paciente: {{atendimento?.atend_name_pet}}</strong></p>
+            <p>Idade: {{atendimento?.atend_age_pet}}</p>
+            <p>Categoria:{{atendimento?.atend_type_pet}}</p>
+        </div>
+        <div id="owner-info" >
+            <p><strong>Responsável: {{atendimento?.user_fullName}}</strong></p>
+            <p>E-mail: {{atendimento?.user_email}}</p>
+            <p>Telefone:{{atendimento?.user_phone}}</p>
+        </div>
+    </div>
+</details>
