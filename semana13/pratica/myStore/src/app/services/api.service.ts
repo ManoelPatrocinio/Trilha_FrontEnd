@@ -35,7 +35,9 @@ export class ApiService {
         Swal.fire({
           icon: 'success',
           title: 'Sucesso!',
-          text: 'Atendimento adicionado com sucesso.'
+          text: 'Atendimento adicionado com sucesso.',
+          timer:2500,
+          showConfirmButton: false,
         });
       });
   }
@@ -54,7 +56,7 @@ export class ApiService {
         Swal.fire({
           icon: 'error',
           title: 'Erro!',
-          text: 'Ocorreu um erro ao adicionar o atendimento. Por favor, tente novamente.'
+          text: 'Ocorreu um erro ao buscar os atendimentos. Por favor, tente novamente.'
         });
         return throwError(error);
       }),
@@ -72,17 +74,89 @@ export class ApiService {
 
 
 
+  getAtendimentoById(atend_id:string) {
 
-  // getUser(id: string): Observable<type_atendimento[]> {
-  //   return this.http.get<type_atendimento[]>(`/api/user/${id}`);
-  // }
+    return this.http.get< type_atendimento>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${atend_id}.json`,
+      {
+        params: new HttpParams().set('print', 'pretty')
+      }
+    ).pipe(
+      catchError( error =>{
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Ocorreu um erro ao buscar o atendimento. Por favor, tente novamente.'
+        });
+        return throwError(error);
+      }),
+      map(responseData => {
+        // Convertendo o objeto de resposta em um array de objetos
+
+          return responseData as type_atendimento;
+   
+      })
+    )
+
+  }
+
+
+
 
   apagarTodosAtendimentos() {
     return this.http.delete('https://residencia-b1914-default-rtdb.firebaseio.com/posts.json');
   }
 
+  apagarAtendimentoById(atendimentoId: string){
+    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${atendimentoId}.json`;
+    this.http.delete(url).pipe(
+      catchError(error => {
+        console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Ocorreu um erro ao exlcuir o atendimento. Por favor, tente novamente.'
+          });
+          return throwError(error);
+      })
+    ).subscribe(responseData => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Atendimento excluído com sucesso.',
+        timer:2500,
+        showConfirmButton: false,
+
+      });
+      setTimeout(()=>{
+
+        window.location.reload()
+      }, 3000)
+    });
+  }
+
   
   editarAtendimento(id:string, newAtendimento: type_atendimento) {
-    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${id}.json`, newAtendimento, {observe: 'response'});
+    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${id}.json`, newAtendimento, {observe: 'response'})
+    .pipe(
+      catchError(error => {
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Ocorreu um erro ao editar o atendimento. Por favor, tente novamente.'
+        });
+        return throwError(error);
+      })
+    ).subscribe(responseData => {
+      console.log(responseData);
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Atendimento editado com sucesso.',
+        timer:2500,
+        showConfirmButton: false,
+      });
+    });
   }
 }

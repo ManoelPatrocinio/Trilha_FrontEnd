@@ -1,17 +1,17 @@
-<form [formGroup]="formAtendimento" (ngSubmit)="onSubmit()">
 
+<form  [formGroup]="formAtendimento" (ngSubmit)="onSubmit()">
 
     <div class="row">
         <div class="input-group">
             <label for="user_fullName">Nome Completo</label>
-            <input type="text" formControlName="user_fullName" name="user_fullName">
+            <input type="text" formControlName="user_fullName" name="user_fullName" >
             <div *ngIf="formAtendimento.get('user_fullName')?.errors?.['invalidFullName'] && formAtendimento.get('user_fullName')?.touched">
                 <span class="error_message"> Informe no mínimo nome e sobrenome</span>
             </div>
         </div>
         <div class="input-group">
             <label for="user_email">Sua Email</label>
-            <input type="email" formControlName="user_email" name="user_email">
+            <input type="email" formControlName="user_email" name="user_email" >
             <div *ngIf="!formAtendimento.get('user_email')?.valid &&  formAtendimento.get('user_email')?.touched">
                 <span class="error_message"> Informe um e-mail válido</span>
             </div>
@@ -102,5 +102,5 @@
         </div>
     </div>
 
-    <button type="submit" [disabled]="formAtendimento.invalid">Cadastrar</button>
+    <button type="submit" >Cadastrar</button>
 </form>
