@@ -3,6 +3,7 @@ import { type_atendimento } from '../types/atendimento';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { type_api_returnAllProducts, type_product } from '../types/product';
 
 @Injectable({
   providedIn: 'root'
@@ -158,5 +159,11 @@ export class ApiService {
         showConfirmButton: false,
       });
     });
+  }
+
+  // LOGIC TO PRODUCTS
+
+  getAllProducts():Observable<type_api_returnAllProducts> {
+    return this.http.get< type_api_returnAllProducts>(`https://petfood-backend.onrender.com/`)
   }
 }

@@ -15,8 +15,9 @@
 }
 
 .logo{
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: var(--Color-purple);
+    font-weight: 500;
 }
 
 .items-menu{

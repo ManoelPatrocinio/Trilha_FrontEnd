@@ -58,8 +58,8 @@ form p{
 }
 
 button{
-    background-color: #333232;
-    color: #cecece;
+    background-color: var(--Color-purple);
+    color: #fff;
     padding: .5rem 1rem;
     cursor: pointer;
     border: none;
@@ -69,13 +69,14 @@ button{
 }
 
 button:hover{
-    background-color: #5a5a5a;
+    background-color: var(--Color-violet);
 
 }
 button:disabled{
-    background-color: #a09e9e;
+    background-color: #7c7878 !important;
 
 }
+
 
 .error_message{
     color: #bd2828;
