@@ -57,7 +57,7 @@ export class FormComponent {
 
   //end - personality validators
 
-  onSubmit() {
+  onSubmit(form:any) {
     if (this.userForm.valid) {
       Swal.fire({
         title: 'Sucesso!',
@@ -66,19 +66,9 @@ export class FormComponent {
         timer: 2000
       })
 
-      const jsonUserData = {
-        user_fistName: this.userForm.get('user_fistName')?.value,
-        user_fullName: this.userForm.get('user_fullName')?.value,
-        user_password: this.userForm.get('user_password')?.value,
-        user_email: this.userForm.get('user_email')?.value,
-        user_phone: this.userForm.get('user_phone')?.value,
-        user_address: this.userForm.get('user_address')?.value,
-        user_birthday: this.userForm.get('user_birthday')?.value,
-        user_gender: this.userForm.get('user_gender')?.value,
-        user_profession: this.userForm.get('user_profession')?.value,
-      };
+      
 
-      console.log('Objeto JSON:', jsonUserData);
+      console.log('Objeto JSON:', form.value);
     } else {
       Swal.fire({
         title: 'Error !',

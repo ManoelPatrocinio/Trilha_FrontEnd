@@ -10,7 +10,7 @@ import { type_api_returnAllProducts, type_product } from '../types/product';
 })
 export class ApiService {
 
-  loadedAtendimentos: type_atendimento[] = [];
+
 
   constructor(private http: HttpClient) { }
 

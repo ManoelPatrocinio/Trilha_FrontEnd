@@ -62,27 +62,14 @@ export class FormAtendimentoComponent {
 
   //end - personality validators
 
-  onSubmit() {
+  onSubmit(form:any) {
 
-
-    const jsonUserData = {
-
-      user_fullName: this.formAtendimento.get('user_fullName')?.value,
-      user_email: this.formAtendimento.get('user_email')?.value,
-      user_phone: this.formAtendimento.get('user_phone')?.value,
-      user_address: this.formAtendimento.get('user_address')?.value,
-      atend_type_pet: this.formAtendimento.get('atend_type_pet')?.value,
-      atend_name_pet: this.formAtendimento.get('atend_name_pet')?.value,
-      atend_age_pet: this.formAtendimento.get('atend_age_pet')?.value,
-      atend_date: this.formAtendimento.get('atend_date')?.value,
-      atend_hour: this.formAtendimento.get('atend_hour')?.value,
-    };
     if (this.formDataToEdit !== null) {
-      this.apiService.editarAtendimento(this.formDataToEdit?.id!, jsonUserData);
+      this.apiService.editarAtendimento(this.formDataToEdit?.id!, form.value);
 
     } else {
    
-      this.apiService.addAtendimento(jsonUserData);
+      this.apiService.addAtendimento(form.value);
     }
    
     this.rediracionaPrincipal()
