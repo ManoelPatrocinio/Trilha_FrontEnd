@@ -116,6 +116,9 @@ export class AuthService {
 
   logout() {
     this.usuario.next(new Usuario('', '', '', new Date()));
+    localStorage.removeItem('userLoggedData');
+    
+ 
 
   }
 
