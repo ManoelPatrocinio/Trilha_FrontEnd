@@ -2,18 +2,21 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../services/auth.service';
+import { type_user } from '../../types/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'formEvents',
   standalone: true,
-  imports: [ReactiveFormsModule,NgIf,NgFor],
+  imports: [ReactiveFormsModule, NgIf, NgFor],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
 export class FormComponent {
   userForm: FormGroup;
 
-  constructor() {
+  constructor(private authService: AuthService, private router: Router) {
     this.userForm = new FormGroup({
       'user_fistName': new FormControl(null, [Validators.required, Validators.maxLength(12), Validators.pattern(/^\S{1,12}$/)]),
       'user_fullName': new FormControl(null, [Validators.required, Validators.maxLength(25), this.validateFullName.bind(this)]),
@@ -57,28 +60,23 @@ export class FormComponent {
 
   //end - personality validators
 
-  onSubmit() {
+  onSubmit(form: FormGroup) {
+
     if (this.userForm.valid) {
-      Swal.fire({
-        title: 'Sucesso!',
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 2000
+      this.authService.signupUser(form.value.user_email, form.value.user_password).subscribe((res) => {
+        Swal.fire({
+          title: 'Sucesso !',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000
+
+        })
+        setTimeout(() => {
+          this.router.navigate(['/'])
+
+        }, 2300)
       })
 
-      const jsonUserData = {
-        user_fistName: this.userForm.get('user_fistName')?.value,
-        user_fullName: this.userForm.get('user_fullName')?.value,
-        user_password: this.userForm.get('user_password')?.value,
-        user_email: this.userForm.get('user_email')?.value,
-        user_phone: this.userForm.get('user_phone')?.value,
-        user_address: this.userForm.get('user_address')?.value,
-        user_birthday: this.userForm.get('user_birthday')?.value,
-        user_gender: this.userForm.get('user_gender')?.value,
-        user_profession: this.userForm.get('user_profession')?.value,
-      };
-
-      console.log('Objeto JSON:', jsonUserData);
     } else {
       Swal.fire({
         title: 'Error !',
