@@ -17,4 +17,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 })
 export class AppComponent {
   title = 'myStore';
+
+  constructor(private authService:AuthService){}
+
+  ngOnInit(){
+    this.authService.autoLogin();
+  }
 }
