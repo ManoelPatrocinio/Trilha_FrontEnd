@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 import { type_suino } from '../types/type_suino';
 
@@ -17,10 +17,13 @@ export class ApiService {
 
   cadastroSuino(newSuinoData: type_suino) {
 
-    this.http.post(
-      'https://residencia-b1914-default-rtdb.firebaseio.com/posts.json',
+    return this.http.post(
+      'https://residencia-b1914-default-rtdb.firebaseio.com/suinos.json',
       newSuinoData)
       .pipe(
+        tap(resData => {
+          return resData
+        }),
         catchError(error => {
           console.error(error);
           Swal.fire({
@@ -30,23 +33,15 @@ export class ApiService {
           });
           return throwError(error);
         })
-      ).subscribe(responseData => {
-        console.log(responseData);
-        Swal.fire({
-          icon: 'success',
-          title: 'Sucesso!',
-          text: 'Suíno adicionado com sucesso.',
-          timer:2500,
-          showConfirmButton: false,
-        });
-      });
+      )
+      
   }
 
   
 
   getListaSuinos() {
 
-    return this.http.get< {[key:string]: type_suino}>('https://residencia-b1914-default-rtdb.firebaseio.com/posts.json',
+    return this.http.get< {[key:string]: type_suino}>('https://residencia-b1914-default-rtdb.firebaseio.com/suinos.json',
       {
         params: new HttpParams().set('print', 'pretty')
       }
@@ -76,7 +71,7 @@ export class ApiService {
 
   getSuinoById(suino_id:string) {
 
-    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`,
+    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${suino_id}.json`,
       {
         params: new HttpParams().set('print', 'pretty')
       }
@@ -104,11 +99,11 @@ export class ApiService {
 
 
   apagarTodaListaSuino() {
-    return this.http.delete('https://residencia-b1914-default-rtdb.firebaseio.com/posts.json');
+    return this.http.delete('https://residencia-b1914-default-rtdb.firebaseio.com/suinos.json');
   }
 
   deleteSuinoById(suino_id: string){
-    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`;
+    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${suino_id}.json`;
     this.http.delete(url).pipe(
       catchError(error => {
         console.error(error);
@@ -137,7 +132,7 @@ export class ApiService {
 
   
   editarSuino(id:string, newSuinoData: any) {
-    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${id}.json`, newSuinoData, {observe: 'response'})
+    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${id}.json`, newSuinoData, {observe: 'response'})
     .pipe(
       catchError(error => {
         console.error(error);
@@ -166,7 +161,7 @@ export class ApiService {
   cadastroPesoSuino(newSuinoData: any) {
 
     this.http.post(
-      'https://residencia-b1914-default-rtdb.firebaseio.com/posts.json',
+      'https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso.json',
       newSuinoData)
       .pipe(
         catchError(error => {
@@ -196,7 +191,7 @@ export class ApiService {
 
   getPesoSuinoById(suino_id:string) {
 
-    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`,
+    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${suino_id}.json`,
       {
         params: new HttpParams().set('print', 'pretty')
       }
@@ -226,7 +221,7 @@ export class ApiService {
  
 
   deletePesoSuinoById(suino_id: string){
-    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`;
+    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${suino_id}.json`;
     this.http.delete(url).pipe(
       catchError(error => {
         console.error(error);
@@ -255,7 +250,7 @@ export class ApiService {
 
   
   editarPesoSuino(id:string, newSuinoData: any) {
-    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${id}.json`, newSuinoData, {observe: 'response'})
+    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${id}.json`, newSuinoData, {observe: 'response'})
     .pipe(
       catchError(error => {
         console.error(error);

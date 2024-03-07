@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { type_suino } from '../../types/type_suino';
+import { ApiService } from '../../services/api.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cadastro-suinos',
@@ -12,24 +15,32 @@ import { NgIf } from '@angular/common';
   styleUrl: './cadastro-suinos.component.css'
 })
 export class CadastroSuinosComponent {
-  registerForm: FormGroup= new FormGroup({});
+  registerSuinoForm: FormGroup= new FormGroup({});
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder, private rotas: Router) { }
+  constructor(private apiService: ApiService, private formBuilder: FormBuilder, private rotas: Router) { }
 
   ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
-      'user_email': [null, [Validators.required, Validators.email, Validators.minLength(10)]],
-      'user_password': [null, [Validators.required, Validators.minLength(4), Validators.pattern(/^(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{4,}$/)]],
+    this.registerSuinoForm = this.formBuilder.group({
+      'Brinco': [null, [Validators.required]],
+      'BrincoPai': [null, [Validators.required]],
+      'BrincoMae': [null, [Validators.required]],
+      'DataNascimento': [null, [Validators.required]],
+      'DataSaida': [null, [Validators.required]],
+      'Status': [null, [Validators.required]],
+      'Sexo': [null, [Validators.required]],
 
     })
   }
   onSubmit(form:FormGroup) {
-    this.authService.loginUser(form.value.user_email, form.value.user_password).subscribe(
-      () => { },
-      // Lidar com erros
-      (error) => {
-        console.error('Erro durante o login:', error);
-      }
-    );
+    this.apiService.cadastroSuino(form.value).subscribe(responseData => {
+      console.log(responseData);
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Suíno adicionado com sucesso.',
+        timer:2500,
+        showConfirmButton: false,
+      });
+    });
   }
 }

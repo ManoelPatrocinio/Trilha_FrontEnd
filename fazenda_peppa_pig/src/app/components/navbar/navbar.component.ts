@@ -22,7 +22,7 @@ export class NavbarComponent {
   ngOnInit(): void {
     this.inscricao = this.authService.usuario.subscribe(
       usuario => {
-        console.log(usuario.token);
+        console.log("usuario.token",usuario);
         this.isAuthenticated = usuario.token == null ? false : true;
       });
   }
