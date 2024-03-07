@@ -26,7 +26,7 @@ export class CadastroSuinoComponent implements OnInit {
   submitForm() {
     if (this.cadastroForm.valid) {
       console.log(this.cadastroForm.value);
-      // Aqui você pode enviar os dados para o backend ou fazer o que for necessário com eles
+      //  enviar os dados para o backend ou fazer o que for necessário com eles
     } else {
       alert('Por favor, preencha o formulário corretamente.');
     }
