@@ -29,74 +29,75 @@ export class AuthService {
   signupUser(email: string, password: string) {
     console.log("signupUser")
 
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCoW9pzfgT2Z47vy3NTR7RBy5ZsyhPSBP8', 
-    {
-       email: email,
-       password: password,
-       returnSecureToken: true
-    }).pipe(
-       tap(resData => {
-         const expiracaoData = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-         const usuario = new Usuario(
-           resData.email,
-           resData.localId,
-           resData.idToken,
-           expiracaoData
-         );
-         this.usuario.next(usuario);
-         localStorage.setItem('userLoggedData', JSON.stringify(usuario));
-       }),
-       catchError(error => {
-        console.error(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro!',
-          text: 'Ocorreu um erro ao realizar seu registro. Por favor, tente novamente.'
-        });
-        return throwError(error);
-      })
-    );
-   }
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCoW9pzfgT2Z47vy3NTR7RBy5ZsyhPSBP8',
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }).pipe(
+        tap(resData => {
+          const expiracaoData = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+          const usuario = new Usuario(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            expiracaoData
+          );
+          this.usuario.next(usuario);
+          localStorage.setItem('userLoggedData', JSON.stringify(usuario));
+        }),
+        catchError(error => {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Ocorreu um erro ao realizar seu registro. Por favor, tente novamente.'
+          });
+          return throwError(error);
+        })
+      );
+  }
 
   loginUser(email: string, password: string) {
     return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCoW9pzfgT2Z47vy3NTR7RBy5ZsyhPSBP8',
-    {
-      email: email,
-      password: password,
-      returnSecureToken: true
-   }).pipe(
-    tap(resData => {
-      const expiracaoData = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-        const usuario = new Usuario(
-          resData.email,
-          resData.localId,
-          resData.idToken,
-          expiracaoData
-        );
-        this.usuario.next(usuario);
-        localStorage.setItem('userLoggedData', JSON.stringify(usuario));
-    }),
-    catchError(error => {
-     console.error(error);
-     Swal.fire({
-       icon: 'error',
-       title: 'Erro!',
-       text: 'Ocorreu um erro ao realizar seu login. Por favor, tente novamente.'
-     });
-     return throwError(error);
-   })
-   );
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }).pipe(
+        tap(resData => {
+          const expiracaoData = new Date(new Date().getTime() + +resData.expiresIn * 1000);
+          const usuario = new Usuario(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            expiracaoData
+          );
+          this.usuario.next(usuario);
+          localStorage.setItem('userLoggedData', JSON.stringify(usuario));
+        }),
+        catchError(error => {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Email ou Senha Invalida. Por favor, tente novamente.'
+
+          });
+          return throwError(error);
+        })
+      );
   }
 
   autoLogin() {
-    const userData :{
+    const userData: {
       email: string;
       id: string;
       _token: string;
       _tokenExpirationDate: string;
-    
+
     } = JSON.parse(localStorage.getItem('userLoggedData') as string);
-    if(!userData) {
+    if (!userData) {
       return;
     }
 
@@ -107,7 +108,7 @@ export class AuthService {
       new Date(userData._tokenExpirationDate)
     );
 
-    if(loadedUser.token) {
+    if (loadedUser.token) {
       this.usuario.next(loadedUser);
     }
 
@@ -117,8 +118,8 @@ export class AuthService {
   logout() {
     this.usuario.next(new Usuario('', '', '', new Date()));
     localStorage.removeItem('userLoggedData');
-    
- 
+
+
 
   }
 
