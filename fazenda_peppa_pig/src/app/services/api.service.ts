@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
+import { type_suino } from '../types/type_suino';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
 
 
 
-  cadastroSuino(newSuinoData: any) {
+  cadastroSuino(newSuinoData: type_suino) {
 
     this.http.post(
       'https://residencia-b1914-default-rtdb.firebaseio.com/posts.json',
@@ -45,7 +46,7 @@ export class ApiService {
 
   getListaSuinos() {
 
-    return this.http.get< {[key:string]: any}>('https://residencia-b1914-default-rtdb.firebaseio.com/posts.json',
+    return this.http.get< {[key:string]: type_suino}>('https://residencia-b1914-default-rtdb.firebaseio.com/posts.json',
       {
         params: new HttpParams().set('print', 'pretty')
       }
@@ -73,9 +74,9 @@ export class ApiService {
 
 
 
-  getSuinoById(atend_id:string) {
+  getSuinoById(suino_id:string) {
 
-    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${atend_id}.json`,
+    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`,
       {
         params: new HttpParams().set('print', 'pretty')
       }
@@ -106,8 +107,8 @@ export class ApiService {
     return this.http.delete('https://residencia-b1914-default-rtdb.firebaseio.com/posts.json');
   }
 
-  deleteSuinoById(atendimentoId: string){
-    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${atendimentoId}.json`;
+  deleteSuinoById(suino_id: string){
+    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`;
     this.http.delete(url).pipe(
       catchError(error => {
         console.error(error);
@@ -193,9 +194,9 @@ export class ApiService {
 
   
 
-  getPesoSuinoById(atend_id:string) {
+  getPesoSuinoById(suino_id:string) {
 
-    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${atend_id}.json`,
+    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`,
       {
         params: new HttpParams().set('print', 'pretty')
       }
@@ -224,8 +225,8 @@ export class ApiService {
 
  
 
-  deletePesoSuinoById(atendimentoId: string){
-    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${atendimentoId}.json`;
+  deletePesoSuinoById(suino_id: string){
+    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/posts/${suino_id}.json`;
     this.http.delete(url).pipe(
       catchError(error => {
         console.error(error);
