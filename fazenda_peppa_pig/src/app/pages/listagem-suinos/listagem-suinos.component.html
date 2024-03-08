@@ -1,1 +1,4 @@
-<p>listagem-suinos works!</p>
+<h2>Suínos cadastrados</h2>
+<main>
+    <app-card-suino-detail *ngFor="let suino of listSuinos"  [suino]="suino"/>
+</main>

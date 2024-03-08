@@ -41,6 +41,7 @@ export class CadastroSuinosComponent {
         timer:2500,
         showConfirmButton: false,
       });
+      this.registerSuinoForm.reset()
     });
   }
 }
