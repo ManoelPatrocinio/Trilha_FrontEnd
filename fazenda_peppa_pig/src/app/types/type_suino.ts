@@ -11,9 +11,9 @@ export type type_suino={
 
 
 export type type_suino_peso={
-    id:string,
-    Brinco: number,
-    peso:  number,
+    id?:string,
+    suinoBrinco: string,
+    suinoPeso:  number,
     DataPesagem: Date,
  
 }

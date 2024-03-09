@@ -34,19 +34,19 @@ export class ApiService {
           return throwError(error);
         })
       )
-      
+
   }
 
-  
+
 
   getListaSuinos() {
 
-    return this.http.get< {[key:string]: type_suino}>('https://residencia-b1914-default-rtdb.firebaseio.com/suinos.json',
+    return this.http.get<{ [key: string]: type_suino }>('https://residencia-b1914-default-rtdb.firebaseio.com/suinos.json',
       {
         params: new HttpParams().set('print', 'pretty')
       }
     ).pipe(
-      catchError( error =>{
+      catchError(error => {
         console.error(error);
         Swal.fire({
           icon: 'error',
@@ -69,14 +69,14 @@ export class ApiService {
 
 
 
-  getSuinoById(suino_id:string) {
+  getSuinoById(suino_id: string) {
 
-    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${suino_id}.json`,
+    return this.http.get<type_suino>(`https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${suino_id}.json`,
       {
         params: new HttpParams().set('print', 'pretty')
       }
     ).pipe(
-      catchError( error =>{
+      catchError(error => {
         console.error(error);
         Swal.fire({
           icon: 'error',
@@ -84,12 +84,6 @@ export class ApiService {
           text: 'Ocorreu um erro ao buscar o atendimento. Por favor, tente novamente.'
         });
         return throwError(error);
-      }),
-      map(responseData => {
-        // Convertendo o objeto de resposta em um array de objetos
-
-          return responseData as any;
-   
       })
     )
 
@@ -102,57 +96,57 @@ export class ApiService {
     return this.http.delete('https://residencia-b1914-default-rtdb.firebaseio.com/suinos.json');
   }
 
-  deleteSuinoById(suino_id: string){
+  deleteSuinoById(suino_id: string) {
     const url = `https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${suino_id}.json`;
     this.http.delete(url).pipe(
       catchError(error => {
         console.error(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Erro!',
-            text: 'Ocorreu um erro ao exlcuir o atendimento. Por favor, tente novamente.'
-          });
-          return throwError(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Ocorreu um erro ao exlcuir o atendimento. Por favor, tente novamente.'
+        });
+        return throwError(error);
       })
     ).subscribe(responseData => {
       Swal.fire({
         icon: 'success',
         title: 'Sucesso!',
         text: 'Atendimento excluído com sucesso.',
-        timer:2500,
+        timer: 2500,
         showConfirmButton: false,
 
       });
-      setTimeout(()=>{
+      setTimeout(() => {
 
         window.location.reload()
       }, 3000)
     });
   }
 
-  
-  editarSuino(id:string, newSuinoData: any) {
-    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${id}.json`, newSuinoData, {observe: 'response'})
-    .pipe(
-      catchError(error => {
-        console.error(error);
+
+  editarSuino(id: string, newSuinoData: any) {
+    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/suinos/${id}.json`, newSuinoData, { observe: 'response' })
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Ocorreu um erro ao editar o atendimento. Por favor, tente novamente.'
+          });
+          return throwError(error);
+        })
+      ).subscribe(responseData => {
+        console.log(responseData);
         Swal.fire({
-          icon: 'error',
-          title: 'Erro!',
-          text: 'Ocorreu um erro ao editar o atendimento. Por favor, tente novamente.'
+          icon: 'success',
+          title: 'Sucesso!',
+          text: 'Atendimento editado com sucesso.',
+          timer: 2500,
+          showConfirmButton: false,
         });
-        return throwError(error);
-      })
-    ).subscribe(responseData => {
-      console.log(responseData);
-      Swal.fire({
-        icon: 'success',
-        title: 'Sucesso!',
-        text: 'Atendimento editado com sucesso.',
-        timer:2500,
-        showConfirmButton: false,
       });
-    });
   }
 
   // LOGICA PARA PESOS
@@ -160,7 +154,7 @@ export class ApiService {
 
   cadastroPesoSuino(newSuinoData: any) {
 
-   return this.http.post<type_suino_peso>(
+    return this.http.post<type_suino_peso>(
       'https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso.json',
       newSuinoData)
       .pipe(
@@ -176,92 +170,103 @@ export class ApiService {
       )
   }
 
-  
 
-  
 
-  getPesoSuinoById(suino_id:string) {
 
-    return this.http.get< any>(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${suino_id}.json`,
+
+  getListPesoSuinos() {
+
+    return this.http.get<{ [key: string]: type_suino_peso }>(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso.json`,
       {
         params: new HttpParams().set('print', 'pretty')
       }
     ).pipe(
-      catchError( error =>{
+      catchError(error => {
         console.error(error);
         Swal.fire({
           icon: 'error',
           title: 'Erro!',
-          text: 'Ocorreu um erro ao buscar o atendimento. Por favor, tente novamente.'
+          text: 'Ocorreu um erro ao buscar histórico de pesos. Por favor, tente novamente.'
         });
         return throwError(error);
       }),
       map(responseData => {
         // Convertendo o objeto de resposta em um array de objetos
+        if (responseData) {
+          return Object.keys(responseData).map(key => ({ id: key, ...responseData[key] }));
+        } else {
+          return [];
+        }
 
-          return responseData as any;
-   
       })
     )
 
   }
 
+  getPesoSuinoById(suinoId:string) {
 
+    return this.http.get< type_suino_peso >(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${suinoId}.json`,
+      {
+        params: new HttpParams().set('print', 'pretty')
+      }
+    ).pipe(
+      catchError(error => {
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Ocorreu um erro ao buscar peso do suino por id. Por favor, tente novamente.'
+        });
+        return throwError(error);
+      }),
+      
+    )
 
+  }
 
- 
-
-  deletePesoSuinoById(suino_id: string){
+  
+  deletePesoSuinoById(suino_id: string) {
     const url = `https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${suino_id}.json`;
     this.http.delete(url).pipe(
       catchError(error => {
         console.error(error);
-          Swal.fire({
-            icon: 'error',
-            title: 'Erro!',
-            text: 'Ocorreu um erro ao exlcuir o atendimento. Por favor, tente novamente.'
-          });
-          return throwError(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Ocorreu um erro ao exlcuir o atendimento. Por favor, tente novamente.'
+        });
+        return throwError(error);
       })
     ).subscribe(responseData => {
       Swal.fire({
         icon: 'success',
         title: 'Sucesso!',
         text: 'Atendimento excluído com sucesso.',
-        timer:2500,
+        timer: 2500,
         showConfirmButton: false,
 
       });
-      setTimeout(()=>{
+      setTimeout(() => {
 
         window.location.reload()
       }, 3000)
     });
   }
 
-  
-  editarPesoSuino(id:string, newSuinoData: any) {
-    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${id}.json`, newSuinoData, {observe: 'response'})
-    .pipe(
-      catchError(error => {
-        console.error(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro!',
-          text: 'Ocorreu um erro ao editar o atendimento. Por favor, tente novamente.'
-        });
-        return throwError(error);
-      })
-    ).subscribe(responseData => {
-      console.log(responseData);
-      Swal.fire({
-        icon: 'success',
-        title: 'Sucesso!',
-        text: 'Atendimento editado com sucesso.',
-        timer:2500,
-        showConfirmButton: false,
-      });
-    });
+
+  editarPesoSuino(id: string, newSuinoData: any) {
+    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso/${id}.json`, newSuinoData, { observe: 'response' })
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Ocorreu um erro ao editar o atendimento. Por favor, tente novamente.'
+          });
+          return throwError(error);
+        })
+      )
   }
 
 }

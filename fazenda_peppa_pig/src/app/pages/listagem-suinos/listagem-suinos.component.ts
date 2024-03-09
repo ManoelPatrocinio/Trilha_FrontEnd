@@ -12,12 +12,5 @@ import { CardSuinoDetailComponent } from '../../components/card-suino-detail/car
   styleUrl: './listagem-suinos.component.css'
 })
 export class ListagemSuinosComponent {
-  listSuinos: type_suino[] = []
-  constructor(private apiService: ApiService){}
 
-  ngOnInit(){
-    this.apiService.getListaSuinos().subscribe((datas)=>{
-      this.listSuinos=datas;
-    })
-  }
 }

@@ -27,30 +27,5 @@ export class LoginComponent {
   }
   onSubmit(form: FormGroup) {
 
-    if (this.loginForm.valid) {
-      this.authService.loginUser(form.value.user_email, form.value.user_password).subscribe((res) => {
-        Swal.fire({
-          title: 'Sucesso !',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000
-
-        })
-        setTimeout(() => {
-          this.router.navigate(['/'])
-
-        }, 2300)
-      })
-
-    } else {
-      Swal.fire({
-        title: 'Error !',
-        icon: 'error',
-        text: 'Oppss... Houve um error no formulário, verifique os  campos e tente novamente.',
-        showConfirmButton: true,
-
-      })
-      console.error('Por favor, corrija os erros no formulário.');
-    }
   }
 }
