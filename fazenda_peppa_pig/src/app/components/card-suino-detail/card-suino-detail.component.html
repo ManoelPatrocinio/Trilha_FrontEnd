@@ -7,7 +7,7 @@
 
     </div>
     <div class="row">
-        <p><strong>Idade:</strong> {{suino.DataNascimento}}</p>
+        <p><strong>Idade:</strong> {{suino.DataNascimento | dateInMonths}}</p>
         <p><strong>Data Saida:</strong> {{suino.DataSaida}}</p>
     </div>
     <h4>Informações dos genitores:</h4>
@@ -15,7 +15,7 @@
         <p> <strong>Brinco da Mãe:</strong> {{suino.BrincoMae}}</p>
         <p> <strong>Brinco do Pai:</strong> {{suino.BrincoPai}}</p>
     </div>
-
+    <a routerLink="">Cadastrar Peso</a>
     <div class="btn-option-wrapper">
         <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 

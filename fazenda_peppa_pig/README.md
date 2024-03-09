@@ -1,4 +1,4 @@
-## Cadastro de suíno - status: Pendente
+## Cadastro de suíno - status: Feito
 
 Crie um componente com um formulário rea vo com os
 seguintes campos e seus validadores:
@@ -43,7 +43,7 @@ cadastrado na aplicação;
 o Data da pesagem: dia / mês / ano e é requerido;
 o Peso em Kg: Aceita somente número e é requerido;
 
-## Ediçao de peso - status: Feito
+## Ediçao de peso - status: Pendente
 
 Crie um componente para poder editar o histórico dos pesos
 de um animal;

@@ -1,4 +1,6 @@
-<h2>Suínos cadastrados</h2>
 <main>
-    <app-card-suino-detail *ngFor="let suino of listSuinos"  [suino]="suino"/>
+    <h2>Suínos cadastrados</h2>
+    <div class="card-wrapper">
+        <app-card-suino-detail *ngFor="let suino of listSuinos" [suino]="suino" />
+    </div>
 </main>
