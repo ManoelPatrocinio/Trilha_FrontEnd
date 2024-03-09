@@ -33,7 +33,7 @@ ideia é mostrar um gráﬁco com as datas que o animal foi pesado com seu
 peso. Considere o gráﬁco abaixo, no eixo ver cal ilustra o peso e o eixo
 horizontal as datas que o animal foi pesado.Residência em Tecnologia da Informação e Comunicação
 
-## Cadastro de peso - status: Pendente
+## Cadastro de peso - status: Feito
 
 Crie um componente com um formulário rea vo para
 cadastrar o histórico do peso do animal. U lize os seguintes campos e seus

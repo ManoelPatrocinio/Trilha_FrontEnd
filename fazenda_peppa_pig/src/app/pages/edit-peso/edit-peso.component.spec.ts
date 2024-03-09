@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetalheSuinoComponent } from './detalhe-suino.component';
+import { EditPesoComponent } from './edit-peso.component';
 
-describe('DetalheSuinoComponent', () => {
-  let component: DetalheSuinoComponent;
-  let fixture: ComponentFixture<DetalheSuinoComponent>;
+describe('EditPesoComponent', () => {
+  let component: EditPesoComponent;
+  let fixture: ComponentFixture<EditPesoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetalheSuinoComponent]
+      imports: [EditPesoComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(DetalheSuinoComponent);
+    fixture = TestBed.createComponent(EditPesoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

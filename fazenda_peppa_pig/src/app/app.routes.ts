@@ -5,6 +5,7 @@ import { ListagemSuinosComponent } from './pages/listagem-suinos/listagem-suinos
 import { LoginComponent } from './pages/login/login.component';
 import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
 import { EdicaoSuinoComponent } from './pages/edicao-suino/edicao-suino.component';
+import { RegisterPesoComponent } from './pages/register-peso/register-peso.component';
 
 export const routes: Routes = [
     {path:"", component: HomeComponent},
@@ -12,6 +13,9 @@ export const routes: Routes = [
     {path:"list-suino", component: ListagemSuinosComponent},
     {path:"detail-suino/:id", component: ListagemSuinosComponent},
     {path:"edit-suino/:id", component: EdicaoSuinoComponent},
+
+    {path:"register-peso/:id", component: RegisterPesoComponent},
+
     {path:"login", component: LoginComponent},
     {path:"register", component: CadastroUsuarioComponent},
 

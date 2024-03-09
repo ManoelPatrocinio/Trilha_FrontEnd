@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, map, tap, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
-import { type_suino } from '../types/type_suino';
+import { type_suino, type_suino_peso } from '../types/type_suino';
 
 @Injectable({
   providedIn: 'root'
@@ -160,7 +160,7 @@ export class ApiService {
 
   cadastroPesoSuino(newSuinoData: any) {
 
-    this.http.post(
+   return this.http.post<type_suino_peso>(
       'https://residencia-b1914-default-rtdb.firebaseio.com/suinoPeso.json',
       newSuinoData)
       .pipe(
@@ -173,16 +173,7 @@ export class ApiService {
           });
           return throwError(error);
         })
-      ).subscribe(responseData => {
-        console.log(responseData);
-        Swal.fire({
-          icon: 'success',
-          title: 'Sucesso!',
-          text: 'Atendimento adicionado com sucesso.',
-          timer:2500,
-          showConfirmButton: false,
-        });
-      });
+      )
   }
 
   
