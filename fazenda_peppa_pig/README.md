@@ -82,3 +82,40 @@ nova inscrição.
 
 Injete neste serviço o httpClient para
 realizar os pedidos de login ou nova inscrição no back end.
+
+## Manual de usuário descrevendo resumidamente todas as funcionalidades 
+
+Manual do Usuário: Aplicação de Gerenciamento de Suínos
+
+Introdução
+
+Bem-vindo ao manual do usuário da nossa aplicação de gerenciamento de suínos. Este manual foi criado para ajudá-lo a utilizar todas as funcionalidades da nossa plataforma de forma eficaz e eficiente.
+
+Acesso à Aplicação
+Para acessar a aplicação, visite https://fazenda-peppa-pig.vercel.app/ e faça login com suas credenciais de usuário. Se você ainda não tem uma conta, você pode se inscrever clicando em "criar".
+
+Cadastro de Suíno
+
+Para cadastrar um novo suíno, siga as seguintes etapas:
+
+Acesse o campo de cadastro de suínos.
+Preencha todos os campos obrigatórios, incluindo o Brinco do animal, Brinco do pai, Brinco da mãe, Data de Nascimento, Data da saída, Status e Sexo.
+Certifique-se de que todos os campos estejam preenchidos corretamente e clique em " cadastrar" para cadastrar o suíno.
+
+Listagem de Suínos
+
+Para visualizar a lista de todos os suínos cadastrados na fazenda, acesse o campo de listagem. Você pode filtrar a lista por brinco do pai, brinco da mãe, data de nascimento, data de saída, sexo ou status do suíno. Além disso, você pode editar ou excluir cada suíno da lista conforme necessário.
+
+Cadastro de Peso
+
+Para cadastrar o histórico de peso de um suíno, siga estas instruções:
+
+Acesse o campo de cadastrar  peso.
+Escolha o número de brinco do suíno para o qual deseja cadastrar o peso.
+Preencha a data da pesagem e o peso em quilogramas.
+Clique em "cadastrar" para cadastrar o peso do suíno.
+
+Edição de Peso
+
+Se precisar editar o histórico de peso de um suíno, você pode acessar o campo "Editar". Neste campo, você poderá modificar ou excluir os registros de peso conforme necessário.
+
