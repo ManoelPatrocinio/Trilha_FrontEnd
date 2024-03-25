@@ -61,7 +61,7 @@
 
             <div *ngIf="userForm.get('user_birthday')?.invalid && (userForm.get('user_birthday')?.dirty || userForm.get('user_birthday')?.touched)">
                 <div *ngIf="userForm.get('user_birthday')?.errors?.['required']">
-                  <span class="error_message"> Campo obrigatório ! </span>
+                  <span *ngIf="userForm.get('user_birthday')?.errors?.['required']" class="error_message"> Campo obrigatório ! </span>
                 </div>
                 <div *ngIf="userForm.get('user_birthday')?.errors?.['invalidDate']">
                   <span class="error_message"> Data de Nascimento inválida. </span>
