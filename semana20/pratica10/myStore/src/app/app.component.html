@@ -1,5 +1,32 @@
-<header>
-  <app-nav-bar/>
+<header class="z-3">
+  <app-nav-bar />
 </header>
 
 <router-outlet></router-outlet>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" (focus)="show()">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Seu carrinho</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body text-center">
+    <p *ngIf="carrinho.length == 0" class="w-100 text-center text-gray-700 fw-bolder fs-4 mt-5" > Carrinho vazio</p>
+
+    <div *ngIf="carrinho.length > 0" class="w-100 h-100 p-1"  style="overflow-x: hidden; overflow-y: auto ;">
+
+        <div *ngFor="let item of carrinho " class="row border rounded mb-3 w-100" style="height: 7rem;">
+          <div class="col-3 h-100 p-0 m-0"><img src={{item.capa}} alt="" class="w-100 h-100"></div>
+          <div class="col-9 h-100 text-start">
+            <div>
+              <p class="fs-6 fw-meddium text-gray-900 mb-3 mt-1">{{item.nome}}</p>
+              <div class="w-100 d-flex justify-content-between">
+                <span class="text-success">R$ {{item.preco}}</span>
+                <button class="btn text-danger" (click)="removeItem(item)">Remover</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+  <h5 *ngIf="total > 0" class="w-100 text-center text-success" style="height: 5%;">R$ {{total}}</h5>
+</div>
