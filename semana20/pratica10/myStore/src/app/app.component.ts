@@ -32,11 +32,9 @@ export class AppComponent {
     this.totalCarrinho = this.carrinhoService.getTotalCarrinho()
   }
 
-  show() {
+  updateTotalPrice() {
     this.ngOnInit()
-    console.log("getTotalCarrinho()",this.carrinhoService.getItensCarrinho())
-    this.total = this.carrinhoService.carrinho().reduce((acc, item) => acc + item.preco , 0);
-    console.log("total",this.total)
+    this.total = this.carrinhoService.carrinho().reduce((acc, item) => acc + (item.preco * item.quantidade!) , 0);
 
   }
   removeItem(item: type_product): void {
@@ -48,6 +46,12 @@ export class AppComponent {
       showConfirmButton: false,
     });
     this.ngOnInit()
-    this.show()
+    this.updateTotalPrice()
+  }
+
+  alterQuantidade(event:any, item_id:string){
+    const quantidadeAtual = event.target.value;
+    this.carrinhoService.alterQuantidade(item_id,quantidadeAtual)
+    this.updateTotalPrice()
   }
 }
