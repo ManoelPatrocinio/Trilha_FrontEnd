@@ -4,5 +4,5 @@
     </div>
     <p class="card__title">{{product?.nome}}</p>
     <span class="card__price">R$ {{product?.preco}}</span>
-    <button class="card__btnAdd">Adicionar</button>
+    <button class="card__btnAdd"(click)="adicionarItem(product!)">Adicionar</button>
 </div>

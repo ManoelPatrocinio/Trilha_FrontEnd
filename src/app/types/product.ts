@@ -6,6 +6,7 @@ export type type_product={
     avaliacoes:number,
     marca: string,
     petshop_id: string,
+    quantidade?:number
 }
 
 export type type_api_returnAllProducts={

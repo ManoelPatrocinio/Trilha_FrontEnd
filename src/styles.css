@@ -5,10 +5,11 @@
     padding: 0;
     box-sizing: border-box;
 
-    font-family: "Fredoka", sans-serif;
-    font-size: 1rem;
-    text-decoration: none;
-    list-style: none;
+    font-family: "Fredoka", sans-serif !important;
+    font-size: 1rem ;
+    text-decoration: none !important;
+    list-style: none !important;
+
 }
 body{
     background-color: #f9f9f9;
@@ -30,3 +31,6 @@ html {
     --Color-light-red: #f80759;
 }
 
+p{
+    margin-bottom: 0 !important;
+}
