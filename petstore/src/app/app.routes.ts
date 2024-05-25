@@ -5,6 +5,7 @@ import { ListAtendComponent } from './pages/list-atend/list-atend.component';
 import { EditAtendComponent } from './pages/edit-atend/edit-atend.component';
 import { RegisterProductComponent } from './pages/register-product/register-product.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
   {path:"", component: HomeComponent},
@@ -12,5 +13,6 @@ export const routes: Routes = [
   {path:"list-atend", component: ListAtendComponent},
   {path:"edit-atend/:id", component: EditAtendComponent},
   {path:"register-product", component: RegisterProductComponent },
+  {path:"register", component: RegisterComponent},
   {path:"login", component: LoginComponent},
 ];
