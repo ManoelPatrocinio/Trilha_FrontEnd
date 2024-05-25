@@ -4,6 +4,7 @@ import { RegisterAtendComponent } from './pages/register-atend/register-atend.co
 import { ListAtendComponent } from './pages/list-atend/list-atend.component';
 import { EditAtendComponent } from './pages/edit-atend/edit-atend.component';
 import { RegisterProductComponent } from './pages/register-product/register-product.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   {path:"", component: HomeComponent},
@@ -11,4 +12,5 @@ export const routes: Routes = [
   {path:"list-atend", component: ListAtendComponent},
   {path:"edit-atend/:id", component: EditAtendComponent},
   {path:"register-product", component: RegisterProductComponent },
+  {path:"login", component: LoginComponent},
 ];
