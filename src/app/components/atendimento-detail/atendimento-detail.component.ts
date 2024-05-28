@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { type_atendimento } from '../../types/atendimento';
 import { ApiService } from '../../services/api.service';
 import { RouterLink } from '@angular/router';
@@ -12,13 +12,11 @@ import { RouterLink } from '@angular/router';
 })
 export class AtendimentoDetailComponent {
 
-  @Input() atendimento:type_atendimento|null = null;
+  @Input() atendimento: type_atendimento | null = null;
 
-  constructor(private apiService: ApiService){}
-
-  deleteAtend(){
-    // this.apiService.apagarAtendimentoById(this.atendimento?.id!)
-
+  constructor(private apiService: ApiService) { }
+  deleteAtend() {
+    this.apiService.apagarAtendimentoById(this.atendimento?.id!)
   }
 
 

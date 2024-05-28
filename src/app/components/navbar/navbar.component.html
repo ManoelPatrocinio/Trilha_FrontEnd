@@ -4,13 +4,19 @@
   <div class="items-menu">
     <li> <a routerLink="/">Início</a></li>
     <li> <a routerLink="services">Serviços</a></li>
-    <li id="lk-menu-atendimento">Atendimentos
-      <ul id="menu-atendimento">
+    <li id="lk-menu-drop">Atendimentos
+      <ul id="menu-drop">
         <li><a routerLink="resgister-atend"> Cadastro </a></li>
         <li><a routerLink="list-atend"> Listagem </a></li>
       </ul>
     </li>
-    <li> <a *ngIf="isAuthenticated" (click)="logout()">Logout</a></li>
+    <li id="lk-menu-drop" *ngIf="isAuthenticated">Minha Conta
+      <ul id="menu-drop">
+          <li> <a *ngIf="isAuthenticated" routerLink="/painel">Painel</a></li>
+          <li> <a *ngIf="isAuthenticated" (click)="logout()">Logout</a></li>
+      </ul>
+    </li>
+    
     <li> <a *ngIf="!isAuthenticated" routerLink="login">Entrar/Criar</a></li>
     <li>
       <button class="btn bg-transparent p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"

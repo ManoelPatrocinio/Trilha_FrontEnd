@@ -12,13 +12,15 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrl: './list-atend.component.css'
 })
 export class ListAtendComponent {
-  public atendimentos:type_atendimento[]|null = null;
+  public atendimentos:type_atendimento[]|[] = [];
   constructor(private apiService: ApiService){}
 
   ngOnInit(){
-    // this.apiService.getAtendimento().subscribe((response)=>{
-    //   console.log("response",response)
-    //   this.atendimentos = response
-    // })
+
+      this.apiService.getAtendimento().subscribe((response)=>{
+        console.log("response",response)
+        this.atendimentos = response
+      })
+
   }
 }

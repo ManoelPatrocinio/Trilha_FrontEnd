@@ -25,7 +25,7 @@
   gap: 1rem;
 }
 
-.items-menu li, .items-menu li a{
+.items-menu li, .items-menu li a, .items-menu .btn{
   position: relative;
 
   color: #f9f9f9;
@@ -36,7 +36,7 @@
 }
 
 
-#menu-atendimento{
+#menu-drop{
   position: absolute;
   left:  0;
   top: 2rem;
@@ -52,24 +52,24 @@
   transition: all .3s ease-in-out;
   z-index: 10;
 }
-#lk-menu-atendimento:hover{
+#lk-menu-drop:hover{
   color: var(--Color-purple);
 
-  #menu-atendimento{
+  #menu-drop{
       opacity: 1;
   }
 }
 
 
-#menu-atendimento  li{
+#menu-drop  li{
   margin-bottom: 1rem;  
 }
-#menu-atendimento  li a{
+#menu-drop  li a{
   font-size: 15px;
   font-weight: 500;  
   color: #242424;  
 }
 
-.items-menu li a:hover, #menu-atendimento  li a:hover{
+.items-menu li a:hover, #menu-drop  li a:hover{
   color: var(--Color-purple);
 }

@@ -221,4 +221,57 @@ export class ApiService {
     )
 
   }
+
+  apagarProdutoById(product_id: string) {
+    const url = `https://residencia-b1914-default-rtdb.firebaseio.com/product/${product_id}.json`;
+    this.http.delete(url).pipe(
+      catchError(error => {
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro!',
+          text: 'Ocorreu um erro ao excluir o produto. Por favor, tente novamente.'
+        });
+        return throwError(error);
+      })
+    ).subscribe(responseData => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Produto excluído com sucesso.',
+        timer: 2500,
+        showConfirmButton: false,
+
+      });
+      setTimeout(() => {
+
+        window.location.reload()
+      }, 3000)
+    });
+  }
+
+  editarProduto(id: string, newProdutoData: type_product) {
+    return this.http.put(`https://residencia-b1914-default-rtdb.firebaseio.com/product/${id}.json`, newProdutoData, { observe: 'response' })
+      .pipe(
+        catchError(error => {
+          console.error(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro!',
+            text: 'Ocorreu um erro ao editar o produto. Por favor, tente novamente.'
+          });
+          return throwError(error);
+        })
+      ).subscribe(responseData => {
+        console.log(responseData);
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: 'Produto editado com sucesso.',
+          timer: 2500,
+          showConfirmButton: false,
+        });
+      });
+  }
+
 }

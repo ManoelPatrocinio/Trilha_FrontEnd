@@ -64,13 +64,13 @@ export class FormAtendimentoComponent {
 
   onSubmit(form:any) {
 
-    // if (this.formDataToEdit !== null) {
-    //   this.apiService.editarAtendimento(this.formDataToEdit?.id!, form.value);
+    if (this.formDataToEdit !== null) {
+      this.apiService.editarAtendimento(this.formDataToEdit?.id!, form.value);
 
-    // } else {
+    } else {
    
-    //   this.apiService.addAtendimento(form.value);
-    // }
+      this.apiService.addAtendimento(form.value);
+    }
    
     this.rediracionaPrincipal()
   }
