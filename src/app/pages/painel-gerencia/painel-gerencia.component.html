@@ -1,4 +1,4 @@
-<main>
+<main class="w-100 ">
   <h2 class="w-100 text-center my-5">Painel de gerenciamento de produtos</h2>
 
   <div class="w-100 d-flex justify-content-center mb-5">
@@ -12,7 +12,7 @@
     </a>
         
   </div>
-  <div class="w-100 d-flex justify-content-evenly align-items-start flex-wrap row-gap-3">
+  <div class="w-100 d-flex justify-content-evenly align-items-start flex-wrap row-gap-3" style="min-height: 60vh;">
     <details class="div-collapse shadow" *ngFor="let produto of productlist">
       <summary class="title">{{produto.nome}} </summary>
       <div class="description border rounded">

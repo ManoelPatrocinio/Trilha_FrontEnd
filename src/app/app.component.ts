@@ -10,11 +10,12 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { type_product } from './types/product';
 import Swal from 'sweetalert2';
 import { CarrinhoService } from './services/carrinho.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet,HttpClientModule, NavbarComponent,CarouselComponent],
+  imports: [CommonModule, RouterOutlet,HttpClientModule, NavbarComponent,CarouselComponent,FooterComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   providers: [ApiService, AuthService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
