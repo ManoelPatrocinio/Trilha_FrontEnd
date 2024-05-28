@@ -7,6 +7,9 @@ import { ApiService } from './services/api.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { type_product } from './types/product';
+import Swal from 'sweetalert2';
+import { CarrinhoService } from './services/carrinho.service';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +21,39 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 })
 export class AppComponent {
   title = 'petstore';
+  carrinho: type_product[] = []
+  totalCarrinho: number = 0
+  public total: number = 0
+  constructor(private authService: AuthService, private carrinhoService: CarrinhoService) { }
 
-  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.authService.autoLogin();
+    this.carrinho = this.carrinhoService.getItensCarrinho()
+    this.totalCarrinho = this.carrinhoService.getTotalCarrinho()
+  }
+
+  updateTotalPrice() {
+    this.ngOnInit()
+    this.total = this.carrinhoService.carrinho().reduce((acc, item) => acc + (item.preco * item.quantidade!) , 0);
+
+  }
+
+  removeItem(item: type_product): void {
+    this.carrinhoService.removeItem(item)
+    Swal.fire({
+      icon: 'success',
+      title: 'Removido !',
+      timer: 900,
+      showConfirmButton: false,
+    });
+    this.ngOnInit()
+    this.updateTotalPrice()
+  }
+
+  alterQuantidade(event:any, item_id:string){
+    const quantidadeAtual = event.target.value;
+    this.carrinhoService.alterQuantidade(item_id,quantidadeAtual)
+    this.updateTotalPrice()
   }
 }
