@@ -6,9 +6,9 @@
 
 ## 💻 Sobre o projeto
 
-O projeto consiste em uma aplicação de  loja virtual para uma petshop chamada de PetStore
+O projeto consiste em uma aplicação para a loja virtual chamada PetStore, contendo gerenciamento de atendimentos e produtos.
 
-[Confira o projeto](https://ecatalogo-manoelpatrocinio.vercel.app/) 
+[Confira o projeto]( https://petstore01.netlify.app/) 
 
 
 ## TECNOLOGIAS USADAS
@@ -96,6 +96,6 @@ Albert <span> : </span> [![Linkedin Badge](https://img.shields.io/badge/-Albert-
 Nairan Santos <span> : </span> [![Linkedin Badge](https://img.shields.io/badge/-Nairan-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://linkedin.com/in/manoel-patrocinio-1b342b203/)](https://www.linkedin.com/in/nairansantos/) 
 
 
-Luiz Eduardo <span> : </span> [![Linkedin Badge](https://img.shields.io/badge/-Manoel-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://linkedin.com/in/manoel-patrocinio-1b342b203/)](https://www.linkedin.com/in/eduardsroch/) 
+Luis Eduardo <span> : </span> [![Linkedin Badge](https://img.shields.io/badge/-Manoel-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://linkedin.com/in/manoel-patrocinio-1b342b203/)](https://www.linkedin.com/in/eduardsroch/) 
 
 Manoel Patrocínio <span> : </span> [![Linkedin Badge](https://img.shields.io/badge/-Manoel-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://linkedin.com/in/manoel-patrocinio-1b342b203/)](https://linkedin.com/in/manoel-patrocinio) 
